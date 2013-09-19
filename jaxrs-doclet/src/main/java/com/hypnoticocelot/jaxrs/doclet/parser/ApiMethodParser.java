@@ -6,6 +6,7 @@ import com.hypnoticocelot.jaxrs.doclet.model.ApiResponseMessage;
 import com.hypnoticocelot.jaxrs.doclet.model.HttpMethod;
 import com.hypnoticocelot.jaxrs.doclet.model.Method;
 import com.hypnoticocelot.jaxrs.doclet.model.Model;
+import com.hypnoticocelot.jaxrs.doclet.model.Produce;
 import com.hypnoticocelot.jaxrs.doclet.translator.Translator;
 import com.sun.javadoc.*;
 
@@ -38,6 +39,8 @@ public class ApiMethodParser {
         if (httpMethod == null) {
             return null;
         }
+        
+        List<Produce> produces = Produce.fromMethod(methodDoc);
 
         String path = parentPath + firstNonNull(parsePath(methodDoc.annotations()), "");
 
@@ -94,7 +97,8 @@ public class ApiMethodParser {
                 responseMessages,
                 firstSentences,
                 methodDoc.commentText().replace(firstSentences, ""),
-                returnType
+                returnType,
+                produces
         );
     }
 

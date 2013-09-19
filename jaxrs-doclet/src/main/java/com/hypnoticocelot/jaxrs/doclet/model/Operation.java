@@ -20,6 +20,8 @@ public class Operation {
     @JsonProperty("errorResponses")                    // swagger 1.1 name
     private List<ApiResponseMessage> responseMessages; // swagger 1.2 name
 
+    private List<Produce> produces;
+
     @SuppressWarnings("unused")
     private Operation() {
     }
@@ -32,6 +34,7 @@ public class Operation {
         this.responseMessages = method.getResponseMessages().isEmpty() ? null : method.getResponseMessages();
         this.summary = emptyToNull(method.getFirstSentence());
         this.notes = emptyToNull(method.getComment());
+        this.produces = method.getProduces().isEmpty() ? null : method.getProduces();
     }
 
     public HttpMethod getHttpMethod() {
@@ -62,6 +65,10 @@ public class Operation {
         return notes;
     }
 
+    public List<Produce> getProduces() {
+        return produces;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -73,12 +80,13 @@ public class Operation {
                 && Objects.equal(parameters, that.parameters)
                 && Objects.equal(responseMessages, that.responseMessages)
                 && Objects.equal(summary, that.summary)
-                && Objects.equal(notes, that.notes);
+                && Objects.equal(notes, that.notes)
+                && Objects.equal(produces, that.produces);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(httpMethod, nickname, responseClass, parameters, responseMessages, summary, notes);
+        return Objects.hashCode(httpMethod, nickname, responseClass, parameters, responseMessages, summary, notes, produces);
     }
 
     @Override
@@ -91,6 +99,7 @@ public class Operation {
                 .add("responseMessages", responseMessages)
                 .add("summary", summary)
                 .add("notes", notes)
+                .add("produces", produces)
                 .toString();
     }
 }

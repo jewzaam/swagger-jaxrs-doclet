@@ -11,7 +11,10 @@
                 {
                     "httpMethod": "GET",
                     "nickname": "get",
-                    "responseClass": "response"
+                    "responseClass": "response",
+                    "produces": [
+                        "application/json"
+                    ]
                 },
                 {
                     "httpMethod": "POST",
@@ -23,6 +26,10 @@
                             "name": "payload",
                             "dataType": "payload"
                         }
+                    ],
+                    "produces": [
+                        "application/xml",
+                        "application/json"
                     ]
                 }
             ]
